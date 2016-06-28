@@ -6,6 +6,7 @@ export const actionTypes = {
   BRED: "Bred",
   ALLELE_CHANGED: "Allele changed",
   SEX_CHANGED: "Sex changed",
+  CHROMOSOME_SELECTED: "Chromosome selected",
   DRAKE_SUBMITTED: "Drake submitted",
   NAVIGATED_NEXT_CHALLENGE: "Navigated to next challenge",
   MODAL_DIALOG_DISMISSED: "Modal dialog dismissed",
@@ -131,3 +132,10 @@ export function playgroundComplete() {
   };
 }
 
+export function selectChromosome(organism, chromosome) {
+  return{
+    type: actionTypes.CHROMOSOME_SELECTED,
+    organism,
+    chromosome
+  };
+}
