@@ -19,16 +19,15 @@ const backdropStyle = {
   opacity: 0.1
 };
 
-const dialogStyle = function() {
+const dialogStyle = function(top="50%") {
   // we use some psuedo random coords so nested modals
   // don't sit right on top of each other.
-  let top = 50;
   let left = 50;
   return {
     position: 'absolute',
     width: 385,
-    top: top + '%', left: left + '%',
-    transform: `translate(-${top}%, -${left}%)`,
+    top: top, left: left + '%',
+    transform: `translate(-50%, -${left}%)`,
     backgroundImage: 'url(../resources/images/parchment.jpg)',
     backgroundRepeat: 'no-repeat',
     backgroundOrigin: 'border-box',
@@ -56,7 +55,8 @@ class ModalAlert extends React.Component {
     onHide: PropTypes.func,
     onLeftButtonClick: PropTypes.func,        // optional click handlers if not defined
     onRightButtonClick: PropTypes.func,       // in button props. (Better for `mapDispatchToProps`)
-    challengeAwards: PropTypes.object
+    challengeAwards: PropTypes.object,
+    top: PropTypes.string
   }
 
   static defaultProps = {
@@ -87,7 +87,7 @@ class ModalAlert extends React.Component {
               backdropStyle={backdropStyle}
               show={this.props.show}
               onHide={this.props.onHide} >
-        <div style={dialogStyle()} >
+        <div style={dialogStyle(this.props.top)} >
           <h4 id='modal-label'>{this.props.message}</h4>
           {awardView}
           <p>{this.props.explanation}</p>

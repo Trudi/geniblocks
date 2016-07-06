@@ -6,6 +6,7 @@ const messageProps = {
   MatchDrakeFailure: {
     message: "That's not the drake!",
     explanation: "The drake you have created doesn't match the target drake.\nPlease try again.",
+    top: "475px",
     rightButton: {
       label: "Try again",
       clickFunc: "onDismiss"
@@ -14,6 +15,7 @@ const messageProps = {
   MatchDrakeSuccessLastTrial: {
     message: "Good work!",
     explanation: "The drake you have created matches the target drake.",
+    top: "475px",
     rightButton: {
       label: "Next trial",
       clickFunc: "onAdvanceTrial"
