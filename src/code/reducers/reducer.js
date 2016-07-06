@@ -144,12 +144,11 @@ export default function reducer(state, action) {
       } else return state;
     }
     case actionTypes.NAVIGATED: {
-      let progress = updateProgress(state);
       state = state.merge({
         case: action.case,
         challenge: action.challenge
       });
-      return loadStateFromAuthoring(state, state.authoring, progress);
+      return loadStateFromAuthoring(state, state.authoring, state.challengeProgress);
     }
     case actionTypes.ADVANCED_CHALLENGE: {
       let nextChallenge = state.challenge + 1;

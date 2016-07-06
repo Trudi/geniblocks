@@ -18,14 +18,16 @@ class ChallengeAwardView extends React.Component {
     let awardLevel = "gold";
     if (score === 1) awardLevel = "silver";
     if (score >= 2) awardLevel = "bronze";
-    let pieceName = `coin piece pieces${pieces} piece${pieceNum} ${pieceStyle} ${awardLevel}`;
-    progressImages.push(<div key={pieceNum} className={pieceName} />);
+    if (score > -1){
+      let pieceName = `coin piece pieces${pieces} piece${pieceNum} ${pieceStyle} ${awardLevel}`;
+      progressImages.push(<div key={pieceNum} className={pieceName} />);
+    }
     return progressImages;
   };
 
   render() {
     let caseId = 0, challengeId = 0, challengeCount = 0, progress = [], challengeBackgroundImage, currentPiece = [], progressImages = [];
-    console.log(this.props);
+
     if (this.props.challengeAwards.challengeId != null) {
       caseId = this.props.challengeAwards.caseId,
       challengeId = this.props.challengeAwards.challengeId,
