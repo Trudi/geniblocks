@@ -27,6 +27,15 @@ const messageProps = {
       clickFunc: "onNavigateToNextChallenge"
     },
     challengeAwards: {caseId: 0, challengeId:0, challengeCount: 0, progress: -1}
+  },
+  CaseCompleted: {
+    message: "Good work!",
+    explanation: "You have completed all challenges in this case.",
+    rightButton: {
+      label: "Next case",
+      clickFunc: "onNavigateToNextChallenge"
+    },
+    challengeAwards: {caseId: 0, challengeId:0, challengeCount: 0, progress: -1}
   }
 };
 
@@ -43,7 +52,11 @@ function mapStateToProps (state) {
     };
   } else {
     if (state.challengeComplete){
-      props = messageProps.ChallengeCompleted;
+      if (state.authoring[state.case].length > state.challenge+1) {
+        props = messageProps.ChallengeCompleted;
+      } else {
+        props = messageProps.CaseCompleted;
+      }
       props.challengeAwards.caseId = state.case;
       props.challengeAwards.challengeId = state.challenge;
       props.challengeAwards.challengeCount = state.challenges;

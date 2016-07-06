@@ -44,8 +44,14 @@ export function navigateToChallenge(_case, challenge) {
 
 export function navigateToNextChallenge() {
   return (dispatch, getState) => {
-    const { case: currentCase, challenge: currentChallenge} = getState();
-    dispatch(navigateToChallenge(currentCase, currentChallenge+1));
+    const { case: currentCase, challenge: currentChallenge, authoring} = getState();
+    let nextCase = currentCase,
+        nextChallenge = currentChallenge+1;
+    if (authoring[currentCase].length <= nextChallenge) {
+      nextCase++;
+      nextChallenge = 0;
+    }
+    dispatch(navigateToChallenge(nextCase, nextChallenge));
   };
 }
 
