@@ -28,7 +28,7 @@ const dialogStyle = function(top="50%") {
     width: 385,
     top: top, left: left + '%',
     transform: `translate(-50%, -${left}%)`,
-    backgroundImage: 'url(../resources/images/parchment.jpg)',
+    backgroundImage: 'url(resources/images/parchment.jpg)',
     backgroundRepeat: 'no-repeat',
     backgroundOrigin: 'border-box',
     boxShadow: '0 10px 5px rgba(0,0,0,.5)',
