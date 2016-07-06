@@ -21,7 +21,8 @@ export const actionTypes = {
 };
 
 export const transientStateTypes = {
-  FERTILIZING: "Fertilizing"
+  FERTILIZING: "Fertilizing",
+  HATCHING: "Hatching"
 };
 
 export function startSession(uuid) {
@@ -167,7 +168,13 @@ export function initiateDelayedFertilization(delay, gamete1, gamete2) {
         type: actionTypes.REMOVE_TRANSIENT_STATE,
         transientState: transientStateTypes.FERTILIZING
       });
-      dispatch(fertilize(gamete1, gamete2));
+      dispatch({
+        type: actionTypes.ADD_TRANSIENT_STATE,
+        transientState: transientStateTypes.HATCHING
+      });
+      setTimeout( () => {
+        dispatch(fertilize(gamete1, gamete2));
+      }, 3000);
     }, delay);
   };
 }
