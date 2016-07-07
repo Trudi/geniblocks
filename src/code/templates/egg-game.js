@@ -2,11 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import OrganismView from '../components/organism';
 import GenomeView from '../components/genome';
 import ButtonView from '../components/button';
+import PenView from '../components/pen';
 import { transientStateTypes } from '../actions';
 
 export default class EggGame extends Component {
     render() {
-      const { drakes, gametes, onChromosomeAlleleChange, onGameteChromosomeAdded, onFertilize, onReset, hiddenAlleles, transientStates } = this.props,
+      const { drakes, gametes, onChromosomeAlleleChange, onGameteChromosomeAdded, onFertilize, onResetGametes, onKeepOffspring, hiddenAlleles, transientStates } = this.props,
           mother = new BioLogica.Organism(BioLogica.Species.Drake, drakes[0].alleleString, drakes[0].sex),
           father = new BioLogica.Organism(BioLogica.Species.Drake, drakes[1].alleleString, drakes[1].sex);
 
@@ -21,8 +22,11 @@ export default class EggGame extends Component {
           onFertilize(2000, 0, 1);
         }
       };
+      const handleKeepOffspring = function() {
+        onKeepOffspring();
+      };
       const handleReset = function() {
-        onReset();
+        onResetGametes();
       };
 
       function getGameteChromosome(index, chromosomeName) {
@@ -52,7 +56,15 @@ export default class EggGame extends Component {
       var childView;
       if (drakes[2]) {
         let child = new BioLogica.Organism(BioLogica.Species.Drake, drakes[2].alleleString, drakes[2].sex);
-        childView = <OrganismView org={ child } width={170} />;
+        childView = (
+          [
+            <OrganismView org={ child } width={170} />,
+            <div className="offspring-buttons">
+              <ButtonView label={ "Save this" } onClick={ handleKeepOffspring } />
+              <ButtonView label={ "Try again" } onClick={ handleReset } />
+            </div>
+          ]
+        );
       } else if (transientStates.indexOf(transientStateTypes.HATCHING) > -1) {
         childView = <img className="egg-image" src="resources/images/egg_yellow.png" />;
       } else if (transientStates.indexOf(transientStateTypes.FERTILIZING) === -1) {
@@ -71,44 +83,44 @@ export default class EggGame extends Component {
         spermView = <img className="sperm" src="resources/images/sperm.svg" />;
       }
 
-      var resetButtonView = null;
-      if (drakes[2]) {
-        resetButtonView = <ButtonView label="Reset" onClick={ handleReset } />;
-      }
+      let [,,,...keptDrakes] = drakes;
+      keptDrakes = keptDrakes.asMutable().map((org) => new BioLogica.Organism(BioLogica.Species.Drake, org.alleleString, org.sex));
 
       return (
       <div id="egg-game">
-        <div className='column'>
-          <div>Mother</div>
-            <OrganismView org={ mother } flipped={ true }/>
-            <GenomeView org={ mother } onAlleleChange={ handleAlleleChange } onChromosomeSelected={handleChromosomeSelected} editable={false} hiddenAlleles= { hiddenAlleles } small={ true } selectedChromosomes={ gametes[1] } />
-        </div>
-        <div className='egg column'>
-          <div className='top'>
-            { childView }
+        <div className="columns">
+          <div className='column'>
+            <div>Mother</div>
+              <OrganismView org={ mother } flipped={ true }/>
+              <GenomeView org={ mother } onAlleleChange={ handleAlleleChange } onChromosomeSelected={handleChromosomeSelected} editable={false} hiddenAlleles= { hiddenAlleles } small={ true } selectedChromosomes={ gametes[1] } />
           </div>
-          <div className={ gametesClass }>
-            <div className='half-genome half-genome-left'>
-              { ovumView }
-              <GenomeView chromosomes={ femaleGameteChromosomeMap } species={ mother.species } editable={false} hiddenAlleles= { hiddenAlleles } small={ true } />
+          <div className='egg column'>
+            <div className='top'>
+              { childView }
             </div>
-            <div className='half-genome half-genome-right'>
-              { spermView }
-              <GenomeView chromosomes={ maleGameteChromosomeMap }   species={ mother.species } editable={false} hiddenAlleles= { hiddenAlleles } small={ true } />
+            <div className={ gametesClass }>
+              <div className='half-genome half-genome-left'>
+                { ovumView }
+                <GenomeView chromosomes={ femaleGameteChromosomeMap } species={ mother.species } editable={false} hiddenAlleles= { hiddenAlleles } small={ true } />
+              </div>
+              <div className='half-genome half-genome-right'>
+                { spermView }
+                <GenomeView chromosomes={ maleGameteChromosomeMap }   species={ mother.species } editable={false} hiddenAlleles= { hiddenAlleles } small={ true } />
+              </div>
             </div>
           </div>
-          <div>
-            { resetButtonView }
+          <div className='column'>
+            <div>Father</div>
+              <OrganismView org={ father } />
+              <GenomeView org={ father } onAlleleChange={ handleAlleleChange } onChromosomeSelected={handleChromosomeSelected} editable={false} hiddenAlleles= { hiddenAlleles } small={ true } selectedChromosomes={ gametes[0] } />
           </div>
         </div>
-        <div className='column'>
-          <div>Father</div>
-            <OrganismView org={ father } />
-            <GenomeView org={ father } onAlleleChange={ handleAlleleChange } onChromosomeSelected={handleChromosomeSelected} editable={false} hiddenAlleles= { hiddenAlleles } small={ true } selectedChromosomes={ gametes[0] } />
+        <div className='columns bottom'>
+          <PenView orgs={ keptDrakes } width={500} columns={5} rows={1} tightenRows={20}/>
         </div>
       </div>
     );
-    }
+  }
 
   static propTypes = {
     drakes: PropTypes.array.isRequired,

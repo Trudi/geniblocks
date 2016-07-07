@@ -184,7 +184,7 @@
   display:none;
 }
 
-#egg-game{
+.columns{
   display:flex;
 }
 
@@ -194,12 +194,27 @@
 }
 
 .egg
-  position: relative;
-  display: flex;
-  width: 420px;
+  position: relative
+  display: flex
+  width: 420px
 
   .top
-    height: 218px;
+    display: flex
+    align-items: flex-start
+    height: 218px
+
+    .organism
+      padding-left: 25px
+
+    .offspring-buttons
+      display: flex
+      flex-direction: column
+      justify-content: center
+      height: 100%
+      button
+        margin: 3px
+        padding: 4px
+        width: 76px
 
   .gametes
     display: flex
@@ -247,6 +262,10 @@
 
   .organism
     padding-top: 40px
+
+#egg-game .bottom
+  justify-content center
+  margin-top -28px
 
 
 .egg-alleles {

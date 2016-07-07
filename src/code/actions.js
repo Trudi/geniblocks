@@ -8,8 +8,9 @@ export const actionTypes = {
   SEX_CHANGED: "Sex changed",
   GAMETE_CHROMOSOME_ADDED: "Gamete chromosome added",
   FERTILIZED: "Fertilized",
+  OFFSPRING_KEPT: "Offspring kept",
   DRAKE_SUBMITTED: "Drake submitted",
-  RESET_CHALLENGE: "Challenge reset",
+  GAMETES_RESET: "Gametes reset",
   NAVIGATED_NEXT_CHALLENGE: "Navigated to next challenge",
   MODAL_DIALOG_DISMISSED: "Modal dialog dismissed",
   ADVANCED_TRIAL: "Advanced to next trial",
@@ -52,13 +53,6 @@ export function navigateToNextChallenge() {
       nextChallenge = 0;
     }
     dispatch(navigateToChallenge(nextCase, nextChallenge));
-  };
-}
-
-export function resetChallenge() {
-  return (dispatch, getState) => {
-    const { case: currentCase, challenge: currentChallenge} = getState();
-    dispatch(navigateToChallenge(currentCase, currentChallenge));
   };
 }
 
@@ -194,5 +188,17 @@ export function initiateDelayedFertilization(delay, gamete1, gamete2) {
         dispatch(fertilize(gamete1, gamete2));
       }, 3000);
     }, delay);
+  };
+}
+
+export function keepOffspring() {
+  return {
+    type: actionTypes.OFFSPRING_KEPT
+  };
+}
+
+export function resetGametes() {
+  return {
+    type: actionTypes.GAMETES_RESET
   };
 }

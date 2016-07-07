@@ -112,6 +112,22 @@ export default function reducer(state, action) {
       });
     }
 
+    case actionTypes.OFFSPRING_KEPT: {
+      state = state.set("drakes", state.drakes.concat({
+        alleleString: state.drakes[2].alleleString,
+        sex: state.drakes[2].sex
+      }));
+      state = state.set("gametes", [{}, {}]);
+      state = state.setIn(["drakes", 2], null);
+      return state;
+    }
+
+    case actionTypes.GAMETES_RESET: {
+      state = state.set("gametes", [{}, {}]);
+      state = state.setIn(["drakes", 2], null);
+      return state;
+    }
+
     case actionTypes.DRAKE_SUBMITTED: {
       let challengeComplete = false;
       let progress = updateProgress(state, action.correct);

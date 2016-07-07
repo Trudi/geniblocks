@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import templates from '../templates';
-import { changeAllele, changeSex, submitDrake, resetChallenge, navigateToCurrentRoute, navigateToChallenge, navigateToNextChallenge, playgroundComplete, addGameteChromosome, initiateDelayedFertilization } from '../actions';
+import { changeAllele, changeSex, submitDrake, resetGametes, navigateToCurrentRoute, navigateToChallenge, navigateToNextChallenge, playgroundComplete, addGameteChromosome, keepOffspring, initiateDelayedFertilization } from '../actions';
 
 class ChallengeContainer extends Component {
   componentWillMount() {
@@ -58,13 +58,14 @@ function mapDispatchToProps(dispatch) {
     onChromosomeAlleleChange: (index, chrom, side, prevAllele, newAllele) => dispatch(changeAllele(index, chrom, side, prevAllele, newAllele, true)),
     onSexChange: (index, newSex) => dispatch(changeSex(index, newSex, true)),
     onDrakeSubmission: (targetPhenotype, userPhenotype, correct) => dispatch(submitDrake(targetPhenotype, userPhenotype, correct)),
-    onReset: () => dispatch(resetChallenge()),
     onNavigateNextChallenge: () => dispatch(navigateToNextChallenge()),
     onPlaygroundComplete: () => dispatch(playgroundComplete()),
     navigateToChallenge: (_case, challenge) => dispatch(navigateToChallenge(_case, challenge)),
     navigateToCurrentRoute: (_case, challenge) => dispatch(navigateToCurrentRoute(_case, challenge)),
     onGameteChromosomeAdded: (index, name, side) => dispatch(addGameteChromosome(index, name, side)),
-    onFertilize: (delay, gamete1, gamete2) => dispatch(initiateDelayedFertilization(delay, gamete1, gamete2))
+    onFertilize: (delay, gamete1, gamete2) => dispatch(initiateDelayedFertilization(delay, gamete1, gamete2)),
+    onResetGametes: () => dispatch(resetGametes()),
+    onKeepOffspring: () => dispatch(keepOffspring())
   };
 }
 
