@@ -113,18 +113,48 @@ export default function reducer(state, action) {
     }
 
     case actionTypes.OFFSPRING_KEPT: {
-      state = state.set("drakes", state.drakes.concat({
-        alleleString: state.drakes[2].alleleString,
-        sex: state.drakes[2].sex
-      }));
-      state = state.set("gametes", [{}, {}]);
-      state = state.setIn(["drakes", 2], null);
-      return state;
+      let drakeDef = state.drakes[2],
+          newOrg = new BioLogica.Organism(BioLogica.Species.Drake, drakeDef.alleleString, drakeDef.sex),
+          newOrgImage = newOrg.getImageName(),
+          [,,,...keptDrakes] = state.drakes,
+          success = true;
+      for (let drake of keptDrakes) {
+        let org = new BioLogica.Organism(BioLogica.Species.Drake, drake.alleleString, drake.sex);
+        if (org.getImageName() === newOrgImage) {
+          success = false;
+          break;
+        }
+      }
+      if (success) {
+        state = state.set("drakes", state.drakes.concat({
+          alleleString: state.drakes[2].alleleString,
+          sex: state.drakes[2].sex
+        }));
+        state = state.set("gametes", [{}, {}]);
+        state = state.setIn(["drakes", 2], null);
+        return state;
+      } else {
+        return state.merge({
+          showingInfoMessage: true,
+          message: {
+            message: "Uh oh!",
+            explanation: "You already have a drake that looks just like that!",
+            rightButton: {
+              label: "Try again",
+              action: "resetGametes"
+            }
+          }
+        });
+      }
     }
 
     case actionTypes.GAMETES_RESET: {
       state = state.set("gametes", [{}, {}]);
       state = state.setIn(["drakes", 2], null);
+      state = state.merge({
+        showingInfoMessage: false,
+        message: null
+      });
       return state;
     }
 
