@@ -23,7 +23,7 @@ const messageProps = {
   },
   ChallengeCompleted: {
     message: "Good work!",
-    explanation: "You have completed all trials in this challenge.",
+    explanation: "You earned a piece of a coin!",
     rightButton: {
       label: "Next challenge",
       action: "navigateToNextChallenge"
