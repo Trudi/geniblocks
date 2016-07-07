@@ -13,8 +13,8 @@ const defaults = {
   }
 };
 
-const ChromosomeImageView = ({width, height, split, color='#FF9999', small=false, bold=false, empty=false}) => {
-  if (!width || !height || !split) {
+const ChromosomeImageView = ({width, height, split=45, color='#FF9999', small=false, bold=false, empty=false}) => {
+  if (!width || !height) {
     ({width, height, split} = small ? defaults.small : defaults.normal);
   }
 
