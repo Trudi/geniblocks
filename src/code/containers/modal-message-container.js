@@ -32,10 +32,10 @@ const messageProps = {
   },
   CaseCompleted: {
     message: "Good work!",
-    explanation: "You have completed all challenges in this case.",
+    explanation: "You have found all the pieces of this coin!",
     rightButton: {
       label: "Next case",
-      clickFunc: "onNavigateToNextChallenge"
+      action: "navigateToNextChallenge"
     },
     challengeAwards: {caseId: 0, challengeId:0, challengeCount: 0, progress: -1}
   }
