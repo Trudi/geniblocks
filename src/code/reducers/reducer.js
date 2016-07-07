@@ -133,16 +133,14 @@ export default function reducer(state, action) {
         state = state.set("gametes", [{}, {}]);
         state = state.setIn(["drakes", 2], null);
 
-        if (state.drakes.length === 8) {
+        if (state.drakes.length === 4) {
           let challengeComplete = true,
-              progress = updateProgress(state, true),
-              currentScore = 0;
+              progress = setProgressScore(state, 0);
 
-          return state.merge({
+          state = state.merge({
             showingInfoMessage: true,
-            trialSuccess: action.correct,
+            trialSuccess: true,
             challengeProgress: progress,
-            currentScore,
             challengeComplete
           });
         }
