@@ -59,7 +59,7 @@ export default class EggGame extends Component {
         childView = (
           [
             <OrganismView org={ child } width={170} />,
-            <div className="offspring-buttons">
+            <div className="offspring-buttons fade-in-on-render">
               <ButtonView label={ "Save this" } onClick={ handleKeepOffspring } />
               <ButtonView label={ "Try again" } onClick={ handleReset } />
             </div>
@@ -120,6 +120,15 @@ export default class EggGame extends Component {
         </div>
       </div>
     );
+  }
+
+  componentDidUpdate() {
+    setTimeout( () => {
+      let fadeIns = document.getElementsByClassName("fade-in-on-render");
+      for (let el of fadeIns) {
+        el.classList.add("show");
+      }
+    }, 1);
   }
 
   static propTypes = {

@@ -188,6 +188,12 @@
   display:flex;
 }
 
+.fade-in-on-render
+  opacity: 0
+  transition: opacity 3s
+  &.show
+    opacity: 1
+
 #egg-game .geniblocks.genome {
   position: relative;
   top: -33px;
