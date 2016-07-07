@@ -49,7 +49,7 @@ export function navigateToNextChallenge() {
     let nextCase = currentCase,
         nextChallenge = currentChallenge+1;
     if (authoring[currentCase].length <= nextChallenge) {
-      nextCase++;
+      if (authoring[currentCase+1]) nextCase++;
       nextChallenge = 0;
     }
     dispatch(navigateToChallenge(nextCase, nextChallenge));
