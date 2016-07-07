@@ -133,7 +133,7 @@ export default function reducer(state, action) {
         state = state.set("gametes", [{}, {}]);
         state = state.setIn(["drakes", 2], null);
 
-        if (state.drakes.length === 4) {
+        if (state.drakes.length === 8) {
           let challengeComplete = true,
               progress = setProgressScore(state, 0);
 
