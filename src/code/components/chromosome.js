@@ -13,6 +13,7 @@ import GeneticsUtils from '../utilities/genetics-utils';
 const ChromosomeView = ({chromosome, org, chromosomeName, side, hiddenAlleles=[], small=false, editable=true, selected=false, onAlleleChange, onChromosomeSelected, showLabels=true, showAlleles=false, labelsOnRight=true}) => {
   var containerClass = "items",
       empty = false,
+      yChromosome = false,
       labelsContainer, allelesContainer;
 
   if (org && chromosomeName && side) {
@@ -57,6 +58,9 @@ const ChromosomeView = ({chromosome, org, chromosomeName, side, hiddenAlleles=[]
         </div>
       );
     }
+    if (chromosome.side === "y") {
+      yChromosome = true;
+    }
   } else {
     empty = true;
   }
@@ -71,7 +75,7 @@ const ChromosomeView = ({chromosome, org, chromosomeName, side, hiddenAlleles=[]
     <div className="geniblocks chromosome-container" onClick={ handleSelect } >
       <div className={ containerClass }>
         <div className="chromosome-allele-container">
-          <ChromosomeImageView small={small} empty={empty} bold={selected} />
+          <ChromosomeImageView small={small} empty={empty} bold={selected} yChromosome={yChromosome}/>
           { allelesContainer }
         </div>
         { labelsContainer }

@@ -13,9 +13,23 @@ const defaults = {
   }
 };
 
-const ChromosomeImageView = ({width, height, split=45, color='#FF9999', small=false, bold=false, empty=false}) => {
+const defaultsY = {
+  normal: {
+    width: 23,
+    height: 75,
+    split: 38
+  },
+  small: {
+    width: 19,
+    height: 62,
+    split: 32
+  }
+};
+
+const ChromosomeImageView = ({width, height, split=45, color='#FF9999', small=false, bold=false, empty=false, yChromosome=false}) => {
   if (!width || !height) {
-    ({width, height, split} = small ? defaults.small : defaults.normal);
+    let defaultDims = yChromosome ? defaultsY : defaults;
+    ({width, height, split} = small ? defaultDims.small : defaultDims.normal);
   }
 
   const radius = width/2,
