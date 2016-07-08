@@ -92,7 +92,7 @@ export default class EggGame extends Component {
           <div className='column'>
             <div>Mother</div>
               <OrganismView org={ mother } flipped={ true }/>
-              <GenomeView org={ mother } onAlleleChange={ handleAlleleChange } onChromosomeSelected={handleChromosomeSelected} editable={false} hiddenAlleles= { hiddenAlleles } small={ true } selectedChromosomes={ gametes[1] } />
+              <GenomeView orgName="mother" org={ mother } onAlleleChange={ handleAlleleChange } onChromosomeSelected={handleChromosomeSelected} editable={false} hiddenAlleles= { hiddenAlleles } small={ true } selectedChromosomes={ gametes[1] } />
           </div>
           <div className='egg column'>
             <div className='top'>
@@ -101,11 +101,11 @@ export default class EggGame extends Component {
             <div className={ gametesClass }>
               <div className='half-genome half-genome-left'>
                 { ovumView }
-                <GenomeView chromosomes={ femaleGameteChromosomeMap } species={ mother.species } editable={false} hiddenAlleles= { hiddenAlleles } small={ true } />
+                <GenomeView orgName="targetmother" chromosomes={ femaleGameteChromosomeMap } species={ mother.species } editable={false} hiddenAlleles= { hiddenAlleles } small={ true } />
               </div>
               <div className='half-genome half-genome-right'>
                 { spermView }
-                <GenomeView chromosomes={ maleGameteChromosomeMap }   species={ mother.species } editable={false} hiddenAlleles= { hiddenAlleles } small={ true } />
+                <GenomeView orgName="targetfather" chromosomes={ maleGameteChromosomeMap }   species={ mother.species } editable={false} hiddenAlleles= { hiddenAlleles } small={ true } />
               </div>
             </div>
           </div>
@@ -116,7 +116,7 @@ export default class EggGame extends Component {
           </div>
         </div>
         <div className='columns bottom'>
-          <PenView orgs={ keptDrakes } width={500} columns={5} rows={1} tightenRows={20}/>
+          <PenView orgName="father" orgs={ keptDrakes } width={500} columns={5} rows={1} tightenRows={20}/>
         </div>
       </div>
     );
