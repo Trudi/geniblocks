@@ -79,7 +79,7 @@ const ChromosomeView = ({chromosome, org, chromosomeName, side, hiddenAlleles=[]
   };
 
 
-  animatedChromosome = <AnimatedChromosomeView org={org} id={chromosomeName} hiddenAlleles={hiddenAlleles}
+  animatedChromosome = <AnimatedChromosomeView chromosome={chromosome} id={chromosomeName} hiddenAlleles={hiddenAlleles}
                           onRest={onRest} selected={selected} small={small} startPositionId={chromId} targetPositionId={orgName}/>;
 
   return (

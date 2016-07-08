@@ -4,13 +4,14 @@ import ChromosomeImageView from './chromosome-image';
 import AlleleView from './allele';
 import GeneticsUtils from '../utilities/genetics-utils';
 
-const AnimatedChromosomeView = ({org, chromosomeName, side, hiddenAlleles=[], style={}, onRest, selected, small, startPositionId, targetPositionId }) => {
+const AnimatedChromosomeView = ({chromosome, hiddenAlleles=[], style={}, onRest, selected, small, startPositionId, targetPositionId }) => {
   if (!selected) return(null);
   let allelesContainer = {}, empty= false;
-  if (org && chromosomeName && side) {  
 
-    let alleles = org.getGenotype().chromosomes[chromosomeName][side].alleles,
-        visibleAlleles = GeneticsUtils.filterAlleles(alleles, hiddenAlleles, org.species);
+  if (chromosome) {
+
+    let alleles = chromosome.alleles,
+        visibleAlleles = GeneticsUtils.filterAlleles(alleles, hiddenAlleles, chromosome.species);
     let alleleSymbols = visibleAlleles.map(a => {
       return (
         <AlleleView key={a} allele={a} />
@@ -25,12 +26,12 @@ const AnimatedChromosomeView = ({org, chromosomeName, side, hiddenAlleles=[], st
   } else {
     empty = true;
   }
-  
+
   let sourceRects = {}, targetRects = {};
-  
+
   let source = document.getElementById(startPositionId);
-  if (!source) source = document.getElementById("target" + targetPositionId + chromosomeName);
-  
+  if (!source) source = document.getElementById("target" + targetPositionId + chromosome.chromosome + chromosome.side);
+
   if (source){
     sourceRects = source.getClientRects()[0];
   } else {
@@ -39,26 +40,26 @@ const AnimatedChromosomeView = ({org, chromosomeName, side, hiddenAlleles=[], st
   }
 
   let target = document.getElementById("target" + targetPositionId);
-  if (!target) target = document.getElementById("target" + targetPositionId + chromosomeName);
-  
+  if (!target) target = document.getElementById("target" + targetPositionId + chromosome.chromosome + chromosome.side);
+
   if (target){
     targetRects = target.getClientRects()[0];
   } else {
     console.log("no rects!", target, "target" + targetPositionId);
     return (null);
   }
-  
+
   let startStyle = {}, endStyle = {};
   startStyle.x = sourceRects.left;
   startStyle.y = sourceRects.top;
   startStyle.opacity = 1;
-  
+
   endStyle.x = targetRects.left;
   endStyle.y = sourceRects.top; // can't yet get to the exact chromosome target
   endStyle.opacity = 0;
 
 
-  const 
+  const
     springConfig = { stiffness: 100, damping: 30 };
 
   const onAnimationFinished = () => {

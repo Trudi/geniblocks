@@ -112,11 +112,11 @@ export default class EggGame extends Component {
           <div className='column'>
             <div>Father</div>
               <OrganismView org={ father } />
-              <GenomeView org={ father } onAlleleChange={ handleAlleleChange } onChromosomeSelected={handleChromosomeSelected} editable={false} hiddenAlleles= { hiddenAlleles } small={ true } selectedChromosomes={ gametes[0] } />
+              <GenomeView orgName="father" org={ father } onAlleleChange={ handleAlleleChange } onChromosomeSelected={handleChromosomeSelected} editable={false} hiddenAlleles= { hiddenAlleles } small={ true } selectedChromosomes={ gametes[0] } />
           </div>
         </div>
         <div className='columns bottom'>
-          <PenView orgName="father" orgs={ keptDrakes } width={500} columns={5} rows={1} tightenRows={20}/>
+          <PenView orgs={ keptDrakes } width={500} columns={5} rows={1} tightenRows={20}/>
         </div>
       </div>
     );
