@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import templates from '../templates';
 import { changeAllele, changeSex, submitDrake, resetGametes, navigateToCurrentRoute, navigateToChallenge, navigateToNextChallenge, addGameteChromosome, keepOffspring, initiateDelayedFertilization, playgroundComplete } from '../actions';
+import animationManager from './mixins/animation-manager';
 
 class ChallengeContainer extends Component {
   componentWillMount() {
@@ -22,10 +23,12 @@ class ChallengeContainer extends Component {
     if (!this.props.template) return null;
 
     const Template = templates[this.props.template];
+    const AnimationManagingTemplate = animationManager(Template);
+
     return (
       <div id="challenges" className="case-backdrop">
         <div id="case-wrapper">
-          <Template {...this.props} />
+          <AnimationManagingTemplate {...this.props} />
         </div>
       </div>
     );
